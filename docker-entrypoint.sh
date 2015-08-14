@@ -26,6 +26,10 @@ while ! mysqladmin ping --host="$db_host" --port="$db_port" --silent; do
 done
 
 
+if ! [ -e /patches/sql_tables ]; then
+	cp /config/sql_tables /patches/sql_tables
+fi
+
 # apply SQL patches
 for sql_patch in $(ls /patches/*.sql); do
 	echo "Applying SQL patch $sql_patch..."
@@ -37,7 +41,7 @@ done
 # Set host, username and password.
 echo -n "Setting mysql login credentials in magento..."
 
-cp /config/local.xml app/etc/
+cp /config/local.xml.template app/etc/local.xml
 
 set_magento_config() {
 	# escape /, \, & symbols
