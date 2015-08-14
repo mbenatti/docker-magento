@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install pdo_mysql gd soap mcrypt
 
 COPY config/local.xml.template /config/local.xml
+COPY scripts/backup-databases.sh /usr/local/bin/backup-databases
 
 RUN usermod -u 1000 www-data
 
