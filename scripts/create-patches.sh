@@ -32,8 +32,11 @@ dumpTable() {
 	fi
 }
 
+
+rm -rf "/sql/patches/*"
+
 tables_to_save=$(grep -Ev "^\s*(#|$)" /patches/sql_tables)
 
 for table in $tables_to_save; do
-	dumpTable "/patches/${table}.sql" "${MAGENTO_DB_PREFIX}$table"
+	dumpTable "/sql/patches/${table}.sql" "${MAGENTO_DB_PREFIX}$table"
 done

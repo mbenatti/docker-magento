@@ -27,14 +27,21 @@ done
 
 
 if [[ "$1" == apache2* ]]; then
+	mkdir -p /sql/patches
 
-	if ! [ -e /patches/sql_tables ]; then
-		cp /config/sql_tables /patches/sql_tables
+	if ! [ -e /sql/patches/sql_tables ]; then
+		cp /config/sql_tables /sql/patches/sql_tables
 	fi
 
+	# apply SQL scripts
+	for sql_script in $(ls /sql/*.sql); do
+		echo "Applying SQL script $sql_script"
+		execute_mysql "$MYSQL_ENV_MYSQL_DATABASE < $sql_script"
+	done
+
 	# apply SQL patches
-	for sql_patch in $(ls /patches/*.sql); do
-		echo "Applying SQL patch $sql_patch..."
+	for sql_patch in $(ls /sql/patches/*.sql); do
+		echo "Applying SQL patch $sql_patch"
 		execute_mysql "$MYSQL_ENV_MYSQL_DATABASE < $sql_patch"
 	done
 
