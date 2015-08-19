@@ -22,10 +22,10 @@
 #	api_session
 	api_user
 #	captcha_log
-	catalog_category_anc_categs_index_idx
-	catalog_category_anc_categs_index_tmp
-	catalog_category_anc_products_index_idx
-	catalog_category_anc_products_index_tmp
+#	catalog_category_anc_categs_index_idx
+#	catalog_category_anc_categs_index_tmp
+#	catalog_category_anc_products_index_idx
+#	catalog_category_anc_products_index_tmp
 	catalog_category_entity
 	catalog_category_entity_datetime
 	catalog_category_entity_decimal
@@ -35,10 +35,10 @@
 	catalog_category_flat_store_1
 	catalog_category_product
 	catalog_category_product_index
-	catalog_category_product_index_enbl_idx
-	catalog_category_product_index_enbl_tmp
-	catalog_category_product_index_idx
-	catalog_category_product_index_tmp
+#	catalog_category_product_index_enbl_idx
+#	catalog_category_product_index_enbl_tmp
+#	catalog_category_product_index_idx
+#	catalog_category_product_index_tmp
 #	catalog_compare_item
 	catalog_eav_attribute
 	catalog_product_bundle_option
@@ -62,32 +62,32 @@
 	catalog_product_flat_1
 	catalog_product_index_eav
 	catalog_product_index_eav_decimal
-	catalog_product_index_eav_decimal_idx
-	catalog_product_index_eav_decimal_tmp
-	catalog_product_index_eav_idx
-	catalog_product_index_eav_tmp
+#	catalog_product_index_eav_decimal_idx
+#	catalog_product_index_eav_decimal_tmp
+#	catalog_product_index_eav_idx
+#	catalog_product_index_eav_tmp
 	catalog_product_index_group_price
 	catalog_product_index_price
-	catalog_product_index_price_bundle_idx
-	catalog_product_index_price_bundle_opt_idx
-	catalog_product_index_price_bundle_opt_tmp
-	catalog_product_index_price_bundle_sel_idx
-	catalog_product_index_price_bundle_sel_tmp
-	catalog_product_index_price_bundle_tmp
-	catalog_product_index_price_cfg_opt_agr_idx
-	catalog_product_index_price_cfg_opt_agr_tmp
-	catalog_product_index_price_cfg_opt_idx
-	catalog_product_index_price_cfg_opt_tmp
-	catalog_product_index_price_downlod_idx
-	catalog_product_index_price_downlod_tmp
-	catalog_product_index_price_final_idx
-	catalog_product_index_price_final_tmp
-	catalog_product_index_price_idx
-	catalog_product_index_price_opt_agr_idx
-	catalog_product_index_price_opt_agr_tmp
-	catalog_product_index_price_opt_idx
-	catalog_product_index_price_opt_tmp
-	catalog_product_index_price_tmp
+#	catalog_product_index_price_bundle_idx
+#	catalog_product_index_price_bundle_opt_idx
+#	catalog_product_index_price_bundle_opt_tmp
+#	catalog_product_index_price_bundle_sel_idx
+#	catalog_product_index_price_bundle_sel_tmp
+#	catalog_product_index_price_bundle_tmp
+#	catalog_product_index_price_cfg_opt_agr_idx
+#	catalog_product_index_price_cfg_opt_agr_tmp
+#	catalog_product_index_price_cfg_opt_idx
+#	catalog_product_index_price_cfg_opt_tmp
+#	catalog_product_index_price_downlod_idx
+#	catalog_product_index_price_downlod_tmp
+#	catalog_product_index_price_final_idx
+#	catalog_product_index_price_final_tmp
+#	catalog_product_index_price_idx
+#	catalog_product_index_price_opt_agr_idx
+#	catalog_product_index_price_opt_agr_tmp
+#	catalog_product_index_price_opt_idx
+#	catalog_product_index_price_opt_tmp
+#	catalog_product_index_price_tmp
 	catalog_product_index_tier_price
 	catalog_product_index_website
 	catalog_product_link
@@ -112,7 +112,7 @@
 #	cataloginventory_stock_item
 #	cataloginventory_stock_status
 #	cataloginventory_stock_status_idx
-#	cataloginventory_stock_status_tmp
+##	cataloginventory_stock_status_tmp
 #	catalogrule
 #	catalogrule_affected_product
 #	catalogrule_customer_group
