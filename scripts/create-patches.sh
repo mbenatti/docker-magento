@@ -23,19 +23,19 @@ dumpTable() {
 		--skip-comments \
 		$database \
 		$table \
-	> /patches/tempfile
+	> /sql/patches/tempfile
 
-	if [ -s /patches/tempfile ]; then
-		mv /patches/tempfile $outfile
+	if [ -s /sql/patches/tempfile ]; then
+		mv /sql/patches/tempfile $outfile
 	else
-		rm /patches/tempfile
+		rm /sql/patches/tempfile
 	fi
 }
 
 
 rm -rf "/sql/patches/*"
 
-tables_to_save=$(grep -Ev "^\s*(#|$)" /patches/sql_tables)
+tables_to_save=$(grep -Ev "^\s*(#|$)" /sql/sql_tables)
 
 for table in $tables_to_save; do
 	dumpTable "/sql/patches/${table}.sql" "${MAGENTO_DB_PREFIX}$table"

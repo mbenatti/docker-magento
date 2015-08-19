@@ -29,8 +29,8 @@ done
 if [[ "$1" == apache2* ]]; then
 	mkdir -p /sql/patches
 
-	if ! [ -e /sql/patches/sql_tables ]; then
-		cp /config/sql_tables /sql/patches/sql_tables
+	if ! [ -e /sql/sql_tables ]; then
+		cp /config/sql_tables /sql/sql_tables
 	fi
 
 	# apply SQL scripts
