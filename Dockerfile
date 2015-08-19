@@ -22,7 +22,6 @@ RUN usermod -u 1000 www-data
 
 VOLUME /var/www/html
 VOLUME /patches
-VOLUME /backups
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
