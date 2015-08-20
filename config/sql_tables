@@ -1,5 +1,5 @@
 # Specify which tables you want to be saved through the save-tables command  and restored
-# on container startup. This makes it possible to use the docker container with a live databse
+# on container startup. This makes it possible to use the docker container with a live database
 #
 # For example, if you need to check in the catalog into your VCS, but not sales data,
 # make sure sales are commented out, and catalog are commented in.
@@ -112,14 +112,14 @@
 #	cataloginventory_stock_item
 #	cataloginventory_stock_status
 #	cataloginventory_stock_status_idx
-##	cataloginventory_stock_status_tmp
-#	catalogrule
-#	catalogrule_affected_product
-#	catalogrule_customer_group
-#	catalogrule_group_website
-#	catalogrule_product
-#	catalogrule_product_price
-#	catalogrule_website
+#	cataloginventory_stock_status_tmp
+	catalogrule
+	catalogrule_affected_product
+	catalogrule_customer_group
+	catalogrule_group_website
+	catalogrule_product
+	catalogrule_product_price
+	catalogrule_website
 #	catalogsearch_fulltext
 #	catalogsearch_query
 #	catalogsearch_result
