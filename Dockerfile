@@ -2,6 +2,13 @@ FROM php:5.6-apache
 
 MAINTAINER Kristof Lünenschloß <kl@latupo.com>
 
+ENV MAGENTO_VERSION 1.9.1.1
+
+RUN curl -o magento.tar.gz -SL http://www.magentocommerce.com/downloads/assets/${MAGENTO_VERSION}/magento-${MAGENTO_VERSION}.tar.gz \
+	&& tar -xzf magento.tar.gz -C /usr/src/ \
+	&& rm magento.tar.gz \
+	&& chown -R www-data:www-data /usr/src/magento
+
 RUN apt-get update && apt-get install -y \
 		mysql-client \
 		php5-mysql \
@@ -19,9 +26,6 @@ COPY scripts/create-patches.sh /usr/local/bin/create-patches
 COPY scripts/backup-databases.sh /usr/local/bin/backup-databases
 
 RUN usermod -u 1000 www-data
-
-VOLUME /var/www/html
-VOLUME /patches
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
