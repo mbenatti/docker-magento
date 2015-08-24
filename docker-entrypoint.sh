@@ -42,6 +42,10 @@ if [[ "$1" == apache2* ]]; then
 		cp -a /usr/src/magento/* .
 	fi
 
+	# copy custom template, if available
+	if [ -e app/etc/local.xml.docker ]; then
+		cp app/etc/local.xml.docker app/etc/local.xml
+	fi
 
 	if [ -e app/etc/local.xml ]; then
 		# shop exists and is already configured
@@ -57,7 +61,7 @@ if [[ "$1" == apache2* ]]; then
 			fi
 		}
 
-		set_magento_config /config/global/resources/default_setup/connection/host "$db_host"
+		set_magento_config /config/global/resources/default_setup/connection/host "$db_host:$db_port"
 		set_magento_config /config/global/resources/default_setup/connection/username "$MYSQL_ENV_MYSQL_USER"
 		set_magento_config /config/global/resources/default_setup/connection/password "$MYSQL_ENV_MYSQL_PASSWORD"
 		set_magento_config /config/global/resources/default_setup/connection/dbname "$MYSQL_ENV_MYSQL_DATABASE"
@@ -108,9 +112,9 @@ if [[ "$1" == apache2* ]]; then
 		echo "It seems like you're running a fresh installation."
 		echo "Please complete the magento wizard and then rerun this container."
 		echo -e "When asked for your DB configuration, use these values:\n"
-		echo "        host: $db_host:$db_port."
+		echo "        host: $db_host:$db_port"
 		echo "        user: $MYSQL_ENV_MYSQL_USER"
-		echo "    password: $MYSQL_ENV_MYSQL_PASSWORD"
+		echo "    database: $MYSQL_ENV_MYSQL_DATABASE"
 		echo -e "############################################################################\n"
 	fi
 fi
