@@ -9,8 +9,8 @@ shopt -s nullglob
 : ${PHP_MEMORY_LIMIT:=512M}
 echo "memory_limit = 512M" >> /usr/local/etc/php/php.ini
 
-db_host="${MYSQL_PORT_3306_TCP_ADDR:mysql}"
-db_port="${MYSQL_PORT_3306_TCP_PORT:3306}"
+db_host="${MYSQL_PORT_3306_TCP_ADDR:-mysql}"
+db_port="${MYSQL_PORT_3306_TCP_PORT:-3306}"
 
 execute_mysql() {
 	eval "mysql --host='$db_host' \
@@ -20,7 +20,7 @@ execute_mysql() {
 		$@"
 }
 
-echo  "Waiting for mysql database on $db_host:$db_port..."
+echo  "Waiting for mysql database on ${db_host}:${db_port}..."
 
 while ! mysqladmin ping --host="$db_host" --port="$db_port" --silent; do
 	echo -n .
@@ -40,18 +40,29 @@ if [[ "$1" == apache2* ]]; then
 	if [ -z "$(ls -A)" ]; then
 		echo "No Magento installation found. Copying..."
 		cp -a /usr/src/magento/* .
+	fi
 
-		echo -e "\n############################################################################"
-		echo "It seems like you're running a fresh installation."
-		echo "No database values will be overwritten, because magento first needs"
-		echo "to initialize the database. Once you're done with that, rerun the image"
-		echo "against the initialized database. The docker entrypoint will inject your"
-		echo "values into the database."
-		echo "You can also provide an SQL dump that will be loaded on startup in"
-		echo "/sql/<yourDump>.sql"
-		echo -e "############################################################################\n"
 
-	else
+	if [ -e app/etc/local.xml ]; then
+		# shop exists and is already configured
+
+		# Set host, username and password.
+		echo "Setting mysql login credentials in magento config."
+
+		set_magento_config() {
+			attribute=$1
+			value=$2
+			if [ -n "$value" ];then
+				xmlstarlet ed -L -u "$attribute" -v "$value" app/etc/local.xml
+			fi
+		}
+
+		set_magento_config /config/global/resources/default_setup/connection/host "$db_host"
+		set_magento_config /config/global/resources/default_setup/connection/username "$MYSQL_ENV_MYSQL_USER"
+		set_magento_config /config/global/resources/default_setup/connection/password "$MYSQL_ENV_MYSQL_PASSWORD"
+		set_magento_config /config/global/resources/default_setup/connection/dbname "$MYSQL_ENV_MYSQL_DATABASE"
+		set_magento_config /config/global/resources/db/table_prefix "$MAGENTO_DB_PREFIX"
+
 
 		# apply SQL scripts
 		for sql_script in /sql/*.sql; do
@@ -92,25 +103,16 @@ if [[ "$1" == apache2* ]]; then
 
 		execute_mysql $MYSQL_ENV_MYSQL_DATABASE -e "\"update ${MAGENTO_DB_PREFIX}admin_user set password = '$(hash_password $MAGENTO_ADMIN_PASSWORD)' where username = 'admin';\""
 
+	else
+		echo -e "\n############################################################################"
+		echo "It seems like you're running a fresh installation."
+		echo "Please complete the magento wizard and then rerun this container."
+		echo -e "When asked for your DB configuration, use these values:\n"
+		echo "        host: $db_host:$db_port."
+		echo "        user: $MYSQL_ENV_MYSQL_USER"
+		echo "    password: $MYSQL_ENV_MYSQL_PASSWORD"
+		echo -e "############################################################################\n"
 	fi
-
-
-	# Set host, username and password.
-	echo "Setting mysql login credentials in magento..."
-
-	cp /config/local.xml.template app/etc/local.xml
-
-	set_magento_config() {
-		# escape /, \, & symbols
-		value=$(echo $2 | sed -e 's/[/\&]/\\\&/g')
-		sed -i "s/$1/$value/" "app/etc/local.xml"
-	}
-
-	set_magento_config DB_HOST "$db_host:$db_port"
-	set_magento_config DB_USER "$MYSQL_ENV_MYSQL_USER"
-	set_magento_config DB_PASSWORD "$MYSQL_ENV_MYSQL_PASSWORD"
-	set_magento_config DB_DATABASE "$MYSQL_ENV_MYSQL_DATABASE"
-	set_magento_config DB_PREFIX "$MAGENTO_DB_PREFIX"
 fi
 
 exec "$@"

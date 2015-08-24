@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install pdo_mysql gd soap mcrypt
 
+RUN apt-get install -y xmlstarlet
+
 COPY config/ /config/
 COPY scripts/create-patches.sh /usr/local/bin/create-patches
 COPY scripts/backup-databases.sh /usr/local/bin/backup-databases
