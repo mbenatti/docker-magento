@@ -32,7 +32,7 @@
 	catalog_category_entity_int
 	catalog_category_entity_text
 	catalog_category_entity_varchar
-	catalog_category_flat_store_1
+#	catalog_category_flat_store_1
 	catalog_category_product
 	catalog_category_product_index
 #	catalog_category_product_index_enbl_idx
@@ -59,7 +59,7 @@
 	catalog_product_entity_text
 	catalog_product_entity_tier_price
 	catalog_product_entity_varchar
-	catalog_product_flat_1
+#	catalog_product_flat_1
 	catalog_product_index_eav
 	catalog_product_index_eav_decimal
 #	catalog_product_index_eav_decimal_idx
